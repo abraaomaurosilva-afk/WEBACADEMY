@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout Semântico HTML</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background: #f4f4f4;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .pagina {
+      max-width: 465px;
+      margin: 0 auto;
+      padding: 0 4px;
+    }
+
+    header {
+      height: 91px;
+      margin-bottom: 16px;
+      border-radius: 7px;
+      background: #ff7188;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 43px;
+    }
+
+    nav {
+      height: 40px;
+      margin-bottom: 17px;
+      border-radius: 7px;
+      background: #42d9a7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .conteudo {
+      display: grid;
+      grid-template-columns: 137px 1fr;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    aside {
+      min-height: 452px;
+      border-radius: 7px;
+      background: #f8ccd2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 27px;
+    }
+
+    main {
+      min-height: 452px;
+      padding: 10px 25px 20px;
+      border-radius: 7px;
+      background: #c3e8fa;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    main > .tag {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 17px;
+    }
+
+    article {
+      background: #61cbed;
+      border-radius: 7px;
+      padding: 17px;
+      margin-bottom: 7px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    article > .tag {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 2px;
+    }
+
+    figure {
+      height: 100px;
+      margin: 0;
+      border-radius: 7px;
+      background: #fff0b3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    p {
+      height: 112px;
+      margin: 0;
+      border-radius: 7px;
+      background: #e8ffa4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    section {
+      height: 75px;
+      border-radius: 7px;
+      background: #08a4e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    footer {
+      height: 91px;
+      border-radius: 7px;
+      background: #ae78ed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 43px;
+    }
+
+    .tag {
+      font-weight: 400;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="pagina">
+    <header>&lt;header&gt;</header>
+
+    <nav>&lt;nav&gt;</nav>
+
+    <div class="conteudo">
+      <aside>&lt;aside&gt;</aside>
+
+      <main>
+        <div class="tag">&lt;main&gt;</div>
+
+        <article>
+          <div class="tag">&lt;article&gt;</div>
+
+          <figure>&lt;figure&gt;</figure>
+
+          <p>&lt;p&gt;</p>
+        </article>
+
+        <section>&lt;section&gt;</section>
+      </main>
+    </div>
+
+    <footer>&lt;footer&gt;</footer>
+  </div>
+</body>
+</html>
