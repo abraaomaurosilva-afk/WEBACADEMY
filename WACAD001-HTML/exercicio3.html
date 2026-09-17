@@ -1,1 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Tarefas</title>
+  </head>
+  <body>
+    <div id="organizador">
+      <h3>Tarefas Pendentes:</h3>
+      <ul id="lista-pendentes">
+        <li id="tarefa-carro">Lavar o carro</li>
+        <li id="tarefa-js">Estudar JavaScript</li>
+        <li id="tarefa-livro">Ler livro</li>
+        <li id="tarefa-roupas">Dobrar as roupas</li>
+      </ul>
 
+      <h3>Tarefas Concluídas:</h3>
+      <ul id="lista-concluidas">
+        <li>Fazer compras</li>
+      </ul>
+    </div>
+
+    <!-- Script com a solução do exercício -->
+    <script>
+      // 1. Apague a tarefa "Lavar o carro"
+      const tarefaCarro = document.getElementById('tarefa-carro');
+      if (tarefaCarro) {
+        tarefaCarro.remove();
+      }
+
+      // 2. Mova a tarefa "Estudar JavaScript" para a lista de concluídas
+      const tarefaJs = document.getElementById('tarefa-js');
+      const listaConcluidas = document.getElementById('lista-concluidas');
+      if (tarefaJs && listaConcluidas) {
+        listaConcluidas.appendChild(tarefaJs);
+      }
+
+      // 3. Crie uma nova tarefa "Fazer exercícios" e adicione-a depois de "Ler livro"
+      const listaPendentes = document.getElementById('lista-pendentes');
+      const tarefaLivro = document.getElementById('tarefa-livro');
+      
+      const novaTarefa = document.createElement('li');
+      novaTarefa.textContent = 'Fazer exercícios';
+      
+      if (tarefaLivro && listaPendentes) {
+        // Insere o novo elemento logo após o item "Ler livro"
+        listaPendentes.insertBefore(novaTarefa, tarefaLivro.nextSibling);
+      }
+
+      // 4. Selecione a tarefa "Ler livro" e adicione o texto [URGENTE] no começo dela
+      if (tarefaLivro) {
+        tarefaLivro.textContent = '[URGENTE] ' + tarefaLivro.textContent;
+      }
+    </script>
+  </body>
+</html>
