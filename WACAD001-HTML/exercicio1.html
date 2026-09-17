@@ -27,24 +27,25 @@
         </ul>
       </div>
 
+      <!-- Script com a solução do exercício -->
       <script>
-        // 1. Seleciona a lista de produtos e descobre a quantidade de itens comprados
-        // Contando diretamente pelos elementos com a classe '.produto-comprado' dentro da lista
-        const quantidade = document.querySelectorAll('#lista-produtos .produto-comprado').length;
+        // 1. Seleciona a lista de produtos e descobre a quantidade de itens
+        const itensCarrinho = document.querySelectorAll('#lista-produtos .produto-comprado');
+        const quantidadeItens = itensCarrinho.length;
 
         // 2. Capture os valores preenchidos nos inputs de Subtotal e de Frete
-        // Convertendo para número decimal (parseFloat) para permitir cálculos matemáticos
+        // Usamos parseFloat para converter o valor do input (string) para número decimal
         const subtotal = parseFloat(document.getElementById('valor-subtotal').value);
         const frete = parseFloat(document.getElementById('valor-frete').value);
 
-        // 3. Some os dois valores para descobrir o custo total da compra
-        const total = subtotal + frete;
+        // 3. Some esses dois valores para descobrir o custo total da compra
+        const totalCompra = subtotal + frete;
 
         // 4. Imprima as 4 informações no console do navegador
-        console.log("Quantidade de itens:", quantidade);
-        console.log("Subtotal:", subtotal);
-        console.log("Frete:", frete);
-        console.log("Total:", total);
+        console.log("Quantidade de itens:", quantidadeItens);
+        console.log("Subtotal (R$):", subtotal.toFixed(2));
+        console.log("Frete (R$):", frete.toFixed(2));
+        console.log("Total da Compra (R$):", totalCompra.toFixed(2));
       </script>
     </body>
 </html>
