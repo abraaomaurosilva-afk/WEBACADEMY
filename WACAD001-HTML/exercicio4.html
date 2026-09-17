@@ -1,1 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+</head>
+<body>
+    <div id="app-tarefas">
+    <h3>Minhas Tarefas</h3>
+    
+    <!-- Campo de digitação e botão de ação -->
+    <input type="text" id="input-nova-tarefa" placeholder="Digite uma tarefa...">
+    <button id="btn-adicionar">Adicionar Tarefa</button>
+    <button id="btn-remover">Remover Tarefa</button>
 
+    <!-- Lista onde as tarefas vão aparecer -->
+    <ul id="lista-tarefas">
+        <li>Revisar código da aula passada</li>
+    </ul>
+    </div>
+
+    <!-- Script com a solução do exercício -->
+    <script>
+        // 1. Seleciona o input de texto, os botões e a lista <ul>
+        const inputTarefa = document.getElementById('input-nova-tarefa');
+        const btnAdicionar = document.getElementById('btn-adicionar');
+        const btnRemover = document.getElementById('btn-remover');
+        const listaTarefas = document.getElementById('lista-tarefas');
+
+        // 2 & 3 & 4 & 5 & 7. Adiciona evento de click para adicionar tarefa com validação
+        btnAdicionar.addEventListener('click', function() {
+            // Captura o .value do input (usamos .trim() para ignorar espaços vazios extras)
+            const textoTarefa = inputTarefa.value.trim();
+
+            // Validação: não permite a adição de tarefas com texto vazio
+            if (textoTarefa === "") {
+                alert("Por favor, digite uma tarefa válida!");
+                return;
+            }
+
+            // Cria um novo elemento <li>, atribui o texto via innerText e adiciona na lista
+            const novoItem = document.createElement('li');
+            novoItem.innerText = textoTarefa;
+            listaTarefas.appendChild(novoItem);
+
+            // Limpa o input atribuindo uma string vazia ("") ao .value
+            inputTarefa.value = "";
+        });
+
+        // 2 & 6. Adiciona evento de click para remover o último elemento da lista
+        btnRemover.addEventListener('click', function() {
+            const ultimoItem = listaTarefas.lastElementChild;
+
+            // Remove o último item apenas se a lista contiver elementos
+            if (ultimoItem) {
+                ultimoItem.remove();
+            } else {
+                alert("A lista já está vazia!");
+            }
+        });
+    </script>
+</body>
+</html>
