@@ -1,0 +1,17 @@
+{
+  "name": "node1",
+  "version": "1.0.0",
+  "description": "Exercício WACAD007 - Node.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development nodemon index.js ./public",
+    "start:prod": "cross-env NODE_ENV=production node index.js ./public"
+  },
+  "dependencies": {
+    "dotenv": "^17.0.0"
+  },
+  "devDependencies": {
+    "cross-env": "^10.0.0",
+    "nodemon": "^3.0.0"
+  }
+}
