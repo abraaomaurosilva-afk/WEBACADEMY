@@ -1,0 +1,1 @@
+ES Modules é o sistema padronizado de módulos do JavaScript e utiliza import e export.
