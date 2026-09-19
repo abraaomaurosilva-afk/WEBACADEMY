@@ -1,0 +1,1 @@
+libuv é uma biblioteca utilizada pelo Node.js para operações assíncronas e de entrada e saída.
