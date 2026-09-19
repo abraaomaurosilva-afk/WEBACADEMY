@@ -1,0 +1,1 @@
+De acordo com sua definição oficial, o Node é um runtime JavaScript que permite executar JavaScript fora do navegador.
