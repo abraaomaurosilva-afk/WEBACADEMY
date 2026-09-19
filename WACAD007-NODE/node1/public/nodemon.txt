@@ -1,0 +1,1 @@
+Nodemon monitora alterações nos arquivos e reinicia automaticamente a aplicação Node.js durante o desenvolvimento.
