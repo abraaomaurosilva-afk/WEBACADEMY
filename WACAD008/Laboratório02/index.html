@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estatísticas da Turma</title>
+  <link rel="stylesheet" href="src/style.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="hero">
+      <div>
+        <span class="tag">TypeScript • Classes e Objetos</span>
+        <h1>Estatísticas da Turma</h1>
+        <p>Cadastre os alunos da aula de Educação Física e acompanhe as médias em tempo real.</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="section-title">
+        <div>
+          <h2>Turma</h2>
+          <p>Informações da turma atual.</p>
+        </div>
+      </div>
+
+      <div class="class-info">
+        <div>
+          <span>ID</span>
+          <strong id="turma-id">1</strong>
+        </div>
+        <div>
+          <span>Nome</span>
+          <strong id="turma-nome">Educação Física</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-grid" aria-label="Estatísticas da turma">
+      <article class="stat-card">
+        <span>👥</span>
+        <small>Nº de alunos</small>
+        <strong id="stat-alunos">0</strong>
+      </article>
+      <article class="stat-card">
+        <span>🎂</span>
+        <small>Média de idades</small>
+        <strong id="stat-idade">0 anos</strong>
+      </article>
+      <article class="stat-card">
+        <span>📏</span>
+        <small>Média de alturas</small>
+        <strong id="stat-altura">0,00 m</strong>
+      </article>
+      <article class="stat-card">
+        <span>⚖️</span>
+        <small>Média de pesos</small>
+        <strong id="stat-peso">0,00 kg</strong>
+      </article>
+    </section>
+
+    <section class="card">
+      <div class="section-title">
+        <div>
+          <h2 id="form-titulo">Adicionar aluno</h2>
+          <p>Preencha os dados para inserir um aluno na turma.</p>
+        </div>
+      </div>
+
+      <form id="form-aluno" class="form-grid">
+        <input type="hidden" id="aluno-id" />
+
+        <div class="field full">
+          <label for="nome">Nome completo</label>
+          <input id="nome" type="text" required placeholder="Ex.: João da Silva" />
+        </div>
+
+        <div class="field">
+          <label for="idade">Idade</label>
+          <input id="idade" type="number" min="1" max="120" required placeholder="Ex.: 18" />
+        </div>
+
+        <div class="field">
+          <label for="altura">Altura (m)</label>
+          <input id="altura" type="number" min="0.5" max="2.5" step="0.01" required placeholder="Ex.: 1,75" />
+        </div>
+
+        <div class="field">
+          <label for="peso">Peso (kg)</label>
+          <input id="peso" type="number" min="1" max="300" step="0.1" required placeholder="Ex.: 70" />
+        </div>
+
+        <div class="form-actions full">
+          <button class="primary" type="submit" id="btn-salvar">Adicionar aluno</button>
+          <button class="secondary hidden" type="button" id="btn-cancelar">Cancelar edição</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="section-title">
+        <div>
+          <h2>Alunos cadastrados</h2>
+          <p>Edite ou remova os registros da turma.</p>
+        </div>
+      </div>
+      <div id="lista-alunos"></div>
+    </section>
+  </main>
+
+  <script src="dist/index.js"></script>
+</body>
+</html>
