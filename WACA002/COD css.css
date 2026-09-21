@@ -1,0 +1,29 @@
+/* Centraliza o conteúdo na tela e define a fonte padrão */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #ffffff;
+    font-family: "Times New Roman", Times, serif; /* Ajustado para um estilo similar ao da imagem */
+}
+
+/* Estilização da caixa de texto estilo balão/fichário */
+.caixa-texto {
+    background-color: #d3d3d3; /* Fundo cinza claro */
+    border: 8px solid #000000; /* Borda preta bem grossa */
+    border-radius: 40px;      /* Arredondamento acentuado nas pontas */
+    padding: 30px 40px;
+    max-width: 550px;
+    box-sizing: border-box;
+}
+
+/* Estilo do parágrafo interno */
+.caixa-texto p {
+    margin: 0;
+    color: #000000;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    text-align: left;
+}

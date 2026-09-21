@@ -1,0 +1,87 @@
+/* Configuração global do corpo da página */
+body {
+    margin: 0;
+    padding: 20px;
+    background-color: #dbe4eb;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+
+/* Estilo base para todas as barras de navegação */
+.navbar {
+    width: 90%;
+    max-width: 1000px;
+    background-color: #1a1a1a;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+/* Estilização do Logo */
+.logo {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+/* Estilização dos links */
+.links {
+    display: flex;
+    gap: 20px;
+}
+
+.links a, .navbar > a {
+    color: #cccccc;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.links a:hover {
+    color: #ffffff;
+}
+
+/* Estilização do botão de contato */
+.btn-contact {
+    background-color: #009688;
+    color: #ffffff !important;
+    padding: 8px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* --- Layout da Primeira Barra (Logo à esquerda, links no centro/espaçados, contato à direita) --- */
+.nav-1 {
+    justify-content: space-between;
+}
+.nav-1 .links {
+    margin-right: auto;
+    margin-left: 100px;
+}
+
+/* --- Layout da Segunda Barra (Links e contato à esquerda, logo à direita) --- */
+.nav-2 {
+    justify-content: space-between;
+}
+.nav-2 .links {
+    margin-right: 20px;
+}
+.nav-2 .btn-contact {
+    margin-right: auto;
+}
+
+/* --- Layout da Terceira Barra (Logo à esquerda, links e contato juntos à direita) --- */
+.nav-3 {
+    justify-content: space-between;
+}
+.nav-3 .links {
+    margin-left: auto;
+    margin-right: 30px;
+}
