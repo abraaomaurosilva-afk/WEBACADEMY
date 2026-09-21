@@ -1,0 +1,12 @@
+{
+  "name": "lembretes-typescript",
+  "version": "1.0.0",
+  "description": "Aplicação de lembretes usando TypeScript e tuplas",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}
