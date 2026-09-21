@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratório 03 - Carrinho de Compras</title>
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+  <header class="header">
+    <div>
+      <p class="eyebrow">Laboratório 03</p>
+      <h1>Carrinho de Compras</h1>
+      <p>Generics, classes e interfaces com TypeScript</p>
+    </div>
+  </header>
+  <main class="container">
+    <section class="card">
+      <h2>Adicionar produto</h2>
+      <div class="form-grid">
+        <label>Tipo
+          <select id="tipo">
+            <option value="tv">TV</option>
+            <option value="celular">Celular</option>
+            <option value="bicicleta">Bicicleta</option>
+          </select>
+        </label>
+        <label>Modelo
+          <input id="modelo" type="text" placeholder="Ex.: Smart TV 55">
+        </label>
+        <label>Fabricante
+          <input id="fabricante" type="text" placeholder="Ex.: Samsung">
+        </label>
+        <label>Valor (R$)
+          <input id="valor" type="number" min="0" step="0.01" placeholder="0,00">
+        </label>
+        <label id="campo-extra-label">Resolução
+          <input id="extra" type="text" placeholder="Ex.: 4K">
+        </label>
+      </div>
+      <button id="adicionar" class="primary">Adicionar ao carrinho</button>
+      <p id="mensagem" class="message" aria-live="polite"></p>
+    </section>
+
+    <section class="card">
+      <div class="cart-header">
+        <div>
+          <h2>Meu carrinho</h2>
+          <p id="quantidade">0 produtos</p>
+        </div>
+        <div class="total-box">
+          <span>Total</span>
+          <strong id="total">R$ 0,00</strong>
+        </div>
+      </div>
+      <div id="lista" class="products">
+        <div class="empty">Nenhum produto adicionado.</div>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="./src/main.ts"></script>
+</body>
+</html>
