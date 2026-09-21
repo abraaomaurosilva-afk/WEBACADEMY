@@ -1,0 +1,29 @@
+/* Define largura e cor dos elementos, além de flutuá-los para ficarem lado a lado */
+div.blue { 
+    width: 100px; 
+    height: 200px; /* Definindo altura para visualizar melhor as caixas */
+    background-color: blue; 
+    float: left;
+}
+
+div.yellow { 
+    width: 100px; 
+    height: 100px; 
+    background-color: yellow; 
+    float: left;
+}
+
+div.red { 
+    width: 100px; 
+    height: 100px; 
+    background-color: red; 
+    float: left;
+}
+
+div.green { 
+    width: 200px; 
+    height: 100px; 
+    background-color: green; 
+    clear: left; /* Garante que o bloco verde fique abaixo dos blocos amarelo/vermelho */
+    float: left;
+}

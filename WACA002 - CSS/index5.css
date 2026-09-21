@@ -1,0 +1,57 @@
+/* Configuração global da página */
+body {
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container principal usando CSS Grid */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 100px);
+    gap: 15px;
+    width: 100%;
+    max-width: 800px;
+}
+
+/* Estilo genérico para as caixas */
+.box {
+    border-radius: 6px;
+}
+
+/* --- Layout Correspondente à Imagem Superior --- */
+.box-vermelha {
+    background-color: #8b0000;
+    grid-column: span 2; /* Ocupa 2 colunas */
+    grid-row: span 1;
+}
+
+.box-azul {
+    background-color: #00008b;
+    grid-column: span 1; /* Ocupa 1 coluna */
+    grid-row: span 1;
+}
+
+.box-verde {
+    background-color: #006400;
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.box-roxa {
+    background-color: #800080;
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.box-laranja {
+    background-color: #ff8c00;
+    grid-column: span 3; /* Ocupa a largura inteira (3 colunas) */
+    grid-row: span 1;
+}

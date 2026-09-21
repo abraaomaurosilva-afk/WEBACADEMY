@@ -1,0 +1,42 @@
+/* Reset básico e configuração de fundo com a imagem da nebulosa */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    /* Substitua o link abaixo pela imagem de fundo desejada ou coloque a imagem na pasta */
+    background: url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilização do bloco de texto flutuante (card) */
+.card-nebulosa {
+    background-color: rgba(0, 0, 0, 0.75); /* Fundo escuro semi-transparente */
+    border: 3px solid #d4a373; /* Borda dourada/bronze semelhante à imagem */
+    border-radius: 12px;
+    padding: 30px;
+    width: 320px;
+    margin-left: 50px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo do título */
+.card-nebulosa h1 {
+    color: #f4a261;
+    font-size: 1.8rem;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Estilo do parágrafo */
+.card-nebulosa p {
+    color: #ffffff;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-align: justify;
+    margin: 0;
+}

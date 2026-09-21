@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introdução ao CSS</title>
+    <!-- Link para o arquivo CSS externo -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="caixa-texto">
+        <p>
+            O CSS é uma linguagem de estilo, também conhecida como linguagem de folhas de estilo em cascata, usada para personalizar o visual de um site ou aplicação.
+        </p>
+    </div>
+
+</body>
+</html> 
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: serif; /* Ajustado para aproximar do estilo da fonte da imagem */
+}
+
+.caixa-texto {
+    background-color: #cccccc; /* Tom de cinza correspondente */
+    border: 8px solid #000000;  /* Borda grossa preta */
+    border-radius: 40px;       /* Arredondamento característico das pontas */
+    padding: 30px 40px;        /* Espaçamento interno */
+    max-width: 600px;          /* Largura máxima da caixa */
+    text-align: left;          /* Alinhamento do texto */
+}
+
+.caixa-texto p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: #000000;
+    margin: 0;
+}
