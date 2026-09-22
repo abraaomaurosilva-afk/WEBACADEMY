@@ -4,7 +4,6 @@ import { Produto } from "./interfaces";
 
 const carrinho = new Carrinho<Produto>();
 let proximoId = 1;
-
 const tipo = document.querySelector<HTMLSelectElement>("#tipo")!;
 const modelo = document.querySelector<HTMLInputElement>("#modelo")!;
 const fabricante = document.querySelector<HTMLInputElement>("#fabricante")!;
@@ -16,104 +15,48 @@ const lista = document.querySelector<HTMLDivElement>("#lista")!;
 const total = document.querySelector<HTMLElement>("#total")!;
 const quantidade = document.querySelector<HTMLElement>("#quantidade")!;
 const mensagem = document.querySelector<HTMLElement>("#mensagem")!;
+const quantidadeStat = document.querySelector<HTMLElement>("#quantidade-stat")!;
+const totalStat = document.querySelector<HTMLElement>("#total-stat")!;
+const mediaStat = document.querySelector<HTMLElement>("#media-stat")!;
+const tiposStat = document.querySelector<HTMLElement>("#tipos-stat")!;
 
 function atualizarCampoExtra(): void {
-  if (tipo.value === "tv") {
-    extraLabel.firstChild!.textContent = "Resolução";
-    extra.placeholder = "Ex.: 4K";
-  } else if (tipo.value === "celular") {
-    extraLabel.firstChild!.textContent = "Memória";
-    extra.placeholder = "Ex.: 256 GB";
-  } else {
-    extraLabel.firstChild!.textContent = "Tamanho do aro";
-    extra.placeholder = "Ex.: 29";
-  }
+  if (tipo.value === "tv") { extraLabel.firstChild!.textContent = "Tamanho (polegadas)"; extra.placeholder = "Ex.: 55"; }
+  else if (tipo.value === "celular") { extraLabel.firstChild!.textContent = "Memória"; extra.placeholder = "Ex.: 256 GB"; }
+  else { extraLabel.firstChild!.textContent = "Tamanho do aro"; extra.placeholder = "Ex.: 29"; }
 }
-
-function moeda(valorNumerico: number): string {
-  return valorNumerico.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  });
-}
-
+function moeda(n: number): string { return n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"}); }
 function criarProduto(): Produto | null {
-  const modeloValue = modelo.value.trim();
-  const fabricanteValue = fabricante.value.trim();
-  const valorValue = Number(valor.value);
-  const extraValue = extra.value.trim();
-
-  if (!modeloValue || !fabricanteValue || !extraValue ||
-      !Number.isFinite(valorValue) || valorValue < 0) return null;
-
-  const id = proximoId++;
-
-  if (tipo.value === "tv") {
-    const tamanho = Number(extraValue.replace(",", "."));
-    if (!Number.isFinite(tamanho)) return null;
-    return new TV(id, modeloValue, "4K", tamanho, fabricanteValue, valorValue);
-  }
-
-  if (tipo.value === "celular") {
-    return new Celular(id, modeloValue, extraValue, fabricanteValue, valorValue);
-  }
-
-  const aro = Number(extraValue.replace(",", "."));
-  if (!Number.isFinite(aro)) return null;
-  return new Bicicleta(id, modeloValue, aro, fabricanteValue, valorValue);
+  const m=modelo.value.trim(), f=fabricante.value.trim(), v=Number(valor.value), e=extra.value.trim();
+  if(!m||!f||!e||!Number.isFinite(v)||v<=0) return null;
+  const id=proximoId++;
+  if(tipo.value==="tv"){ const tamanho=Number(e.replace(",",".")); if(!Number.isFinite(tamanho)||tamanho<=0)return null; return new TV(id,m,"4K",tamanho,f,v); }
+  if(tipo.value==="celular") return new Celular(id,m,e,f,v);
+  const aro=Number(e.replace(",",".")); if(!Number.isFinite(aro)||aro<=0)return null;
+  return new Bicicleta(id,m,aro,f,v);
 }
-
+function atualizarEstatisticas(): void {
+  quantidadeStat.textContent=String(carrinho.quantidade());
+  totalStat.textContent=moeda(carrinho.total());
+  mediaStat.textContent=moeda(carrinho.valorMedio());
+  tiposStat.textContent=String(carrinho.quantidadeTipos());
+  quantidade.textContent=`${carrinho.quantidade()} ${carrinho.quantidade()===1?"produto":"produtos"}`;
+  total.textContent=moeda(carrinho.total());
+}
 function renderizar(): void {
-  const produtos = carrinho.listar();
-  quantidade.textContent = `${produtos.length} ${produtos.length === 1 ? "produto" : "produtos"}`;
-  total.textContent = moeda(carrinho.total());
-
-  if (produtos.length === 0) {
-    lista.innerHTML = '<div class="empty">Nenhum produto adicionado.</div>';
-    return;
-  }
-
-  lista.innerHTML = produtos.map((produto) => `
-    <article class="product">
-      <div class="product-info">
-        <span class="tag">${produto.getTipo()}</span>
-        <h3>${produto.modelo}</h3>
-        <p>${produto.fabricante} • ${produto.getDetalhes()}</p>
-      </div>
-      <div class="product-actions">
-        <strong>${moeda(produto.valor)}</strong>
-        <button class="remove" data-id="${produto.id}">Excluir</button>
-      </div>
-    </article>
-  `).join("");
-
-  lista.querySelectorAll<HTMLButtonElement>(".remove").forEach((button) => {
-    button.addEventListener("click", () => {
-      carrinho.remover(Number(button.dataset.id));
-      mensagem.textContent = "Produto removido.";
-      renderizar();
-    });
-  });
+  atualizarEstatisticas();
+  const produtos=carrinho.listar();
+  if(!produtos.length){ lista.innerHTML='<div class="empty">Nenhum produto adicionado.</div>'; return; }
+  lista.innerHTML=produtos.map(p=>`<article class="product"><div class="product-info"><span class="tag">${p.getTipo()}</span><h3>${p.modelo}</h3><p>${p.fabricante} • ${p.getDetalhes()}</p></div><div class="product-actions"><strong>${moeda(p.valor)}</strong><button class="remove" data-id="${p.id}">Excluir</button></div></article>`).join("");
+  lista.querySelectorAll<HTMLButtonElement>(".remove").forEach(btn=>btn.addEventListener("click",()=>{carrinho.remover(Number(btn.dataset.id));mensagem.textContent="Produto removido. Estatísticas atualizadas.";renderizar();}));
 }
-
-tipo.addEventListener("change", atualizarCampoExtra);
-
-adicionar.addEventListener("click", () => {
-  const produto = criarProduto();
-
-  if (!produto) {
-    mensagem.textContent = "Preencha todos os campos corretamente.";
-    return;
-  }
-
+tipo.addEventListener("change",atualizarCampoExtra);
+adicionar.addEventListener("click",()=>{
+  const produto=criarProduto();
+  if(!produto){mensagem.textContent="Preencha todos os dados do produto corretamente.";return;}
   carrinho.adicionar(produto);
-  mensagem.textContent = "Produto adicionado ao carrinho.";
-  modelo.value = "";
-  fabricante.value = "";
-  valor.value = "";
-  extra.value = "";
+  mensagem.textContent="Produto inserido. Estatísticas atualizadas automaticamente.";
+  modelo.value="";fabricante.value="";valor.value="";extra.value="";
   renderizar();
 });
-
-atualizarCampoExtra();
-renderizar();
+atualizarCampoExtra();renderizar();
