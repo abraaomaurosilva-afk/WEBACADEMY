@@ -28,6 +28,7 @@ const quantidadeStat = elemento<HTMLElement>("#quantidade-stat");
 const totalStat = elemento<HTMLElement>("#total-stat");
 const mediaStat = elemento<HTMLElement>("#media-stat");
 const tiposStat = elemento<HTMLElement>("#tipos-stat");
+const adicionarExemplos = elemento<HTMLButtonElement>("#adicionar-exemplos");
 
 function atualizarCampos(): void {
   const ehTV = tipo.value === "tv";
@@ -85,12 +86,14 @@ function criarProduto(): Produto | null {
 
 function atualizarEstatisticas(): void {
   const qtd = carrinho.quantidade();
+  const soma = carrinho.total();
+
   quantidadeStat.textContent = String(qtd);
-  totalStat.textContent = moeda(carrinho.total());
+  totalStat.textContent = moeda(soma);
   mediaStat.textContent = moeda(carrinho.valorMedio());
   tiposStat.textContent = String(carrinho.quantidadeTipos());
   quantidade.textContent = `${qtd} ${qtd === 1 ? "produto" : "produtos"}`;
-  total.textContent = moeda(carrinho.total());
+  total.textContent = moeda(soma);
 }
 
 function renderizar(): void {
@@ -120,34 +123,50 @@ function renderizar(): void {
     botao.addEventListener("click", () => {
       carrinho.remover(Number(botao.dataset.id));
       mensagem.className = "message success";
-      mensagem.textContent = "Produto removido. Carrinho atualizado.";
+      mensagem.textContent = "Produto removido. Total atualizado.";
       renderizar();
     });
   });
+}
+
+function adicionarProduto(produto: Produto): void {
+  carrinho.adicionar(produto);
+  renderizar();
 }
 
 tipo.addEventListener("change", atualizarCampos);
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  mensagem.className = "message";
 
   const produto = criarProduto();
+
   if (!produto) {
     mensagem.className = "message error";
     mensagem.textContent = "Confira os campos. Preencha todos os dados com valores válidos.";
     return;
   }
 
-  carrinho.adicionar(produto);
+  adicionarProduto(produto);
   mensagem.className = "message success";
-  mensagem.textContent = `${produto.getTipo()} adicionado com sucesso!`;
+  mensagem.textContent = `${produto.getTipo()} adicionado com sucesso! Total: ${moeda(carrinho.total())}`;
 
   form.reset();
   tipo.value = "tv";
   atualizarCampos();
-  renderizar();
   modelo.focus();
+});
+
+adicionarExemplos.addEventListener("click", () => {
+  const exemplos: Produto[] = [
+    new TV(proximoId++, "Smart TV Crystal 55", "4K", 55, "Samsung", 2999.90),
+    new Celular(proximoId++, "Galaxy S25", "256 GB", "Samsung", 4499.90),
+    new Bicicleta(proximoId++, "Mountain Bike Explorer", 29, "Caloi", 1499.00)
+  ];
+
+  exemplos.forEach(adicionarProduto);
+  mensagem.className = "message success";
+  mensagem.textContent = `3 produtos adicionados. Total do carrinho: ${moeda(carrinho.total())}`;
 });
 
 atualizarCampos();
