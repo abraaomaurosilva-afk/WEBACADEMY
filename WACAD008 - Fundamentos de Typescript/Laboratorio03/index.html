@@ -9,7 +9,11 @@
 <body>
   <header class="hero">
     <div class="hero-content">
-      <div><span class="badge">WACAD008 • TypeScript</span><h1>Carrinho de Compras</h1><p>Cadastre TVs, celulares e bicicletas e acompanhe o carrinho em tempo real.</p></div>
+      <div>
+        <span class="badge">WACAD008 • TypeScript</span>
+        <h1>Carrinho de Compras</h1>
+        <p>Cadastre TVs, celulares e bicicletas e acompanhe o carrinho em tempo real.</p>
+      </div>
       <div class="hero-icon" aria-hidden="true">🛒</div>
     </div>
   </header>
@@ -24,7 +28,11 @@
 
     <div class="layout">
       <section class="card form-card">
-        <div class="section-title"><div><span class="step">01</span><h2>Novo produto</h2></div><p>Preencha os campos abaixo.</p></div>
+        <div class="section-title">
+          <div><span class="step">01</span><h2>Novo produto</h2></div>
+          <p>Preencha os campos abaixo.</p>
+        </div>
+
         <form id="produto-form" novalidate>
           <div class="form-grid">
             <label>Tipo do produto
@@ -34,23 +42,33 @@
                 <option value="bicicleta">🚲 Bicicleta</option>
               </select>
             </label>
+
             <label>Modelo
               <input id="modelo" type="text" required autocomplete="off" placeholder="Ex.: Smart TV Crystal">
             </label>
+
             <label>Fabricante
               <input id="fabricante" type="text" required autocomplete="off" placeholder="Ex.: Samsung">
             </label>
+
             <label>Valor (R$)
               <input id="valor" type="number" required min="0.01" step="0.01" placeholder="Ex.: 2499.90">
             </label>
+
             <label id="campo-resolucao-label">Resolução
               <input id="resolucao" type="text" autocomplete="off" placeholder="Ex.: 4K">
             </label>
+
             <label id="campo-extra-label"><span id="extra-texto">Tamanho (polegadas)</span>
               <input id="extra" type="text" required autocomplete="off" placeholder="Ex.: 55">
             </label>
           </div>
-          <button id="adicionar" type="submit" class="primary">+ Adicionar ao carrinho</button>
+
+          <div class="actions">
+            <button id="adicionar" type="submit" class="primary">+ Adicionar ao carrinho</button>
+            <button id="adicionar-exemplos" type="button" class="secondary">Adicionar 3 produtos de exemplo</button>
+          </div>
+
           <p id="mensagem" class="message" aria-live="polite"></p>
         </form>
       </section>
@@ -60,10 +78,201 @@
           <div><span class="step">02</span><h2>Seu carrinho</h2><p id="quantidade">0 produtos</p></div>
           <div class="total-box"><span>Total</span><strong id="total">R$ 0,00</strong></div>
         </div>
-        <div id="lista" class="products"><div class="empty"><span>🛒</span><strong>Carrinho vazio</strong><p>Adicione seu primeiro produto ao lado.</p></div></div>
+
+        <div id="lista" class="products">
+          <div class="empty">
+            <span>🛒</span>
+            <strong>Carrinho vazio</strong>
+            <p>Adicione seu primeiro produto ao lado.</p>
+          </div>
+        </div>
       </section>
     </div>
   </main>
-  <script type="module" src="./src/main.ts"></script>
+
+  <script>
+    class Carrinho {
+      constructor() { this.produtos = []; }
+      adicionar(produto) { this.produtos.push(produto); }
+      remover(id) {
+        const index = this.produtos.findIndex((produto) => produto.id === id);
+        if (index === -1) return;
+        this.produtos.splice(index, 1);
+      }
+      listar() { return [...this.produtos]; }
+      total() { return this.produtos.reduce((soma, produto) => soma + produto.valor, 0); }
+      quantidade() { return this.produtos.length; }
+      valorMedio() { return this.quantidade() === 0 ? 0 : this.total() / this.quantidade(); }
+      quantidadeTipos() { return new Set(this.produtos.map((produto) => produto.tipo)).size; }
+    }
+
+    const carrinho = new Carrinho();
+    let proximoId = 1;
+
+    const form = document.querySelector("#produto-form");
+    const tipo = document.querySelector("#tipo");
+    const modelo = document.querySelector("#modelo");
+    const fabricante = document.querySelector("#fabricante");
+    const valor = document.querySelector("#valor");
+    const resolucao = document.querySelector("#resolucao");
+    const resolucaoLabel = document.querySelector("#campo-resolucao-label");
+    const extra = document.querySelector("#extra");
+    const extraTexto = document.querySelector("#extra-texto");
+    const lista = document.querySelector("#lista");
+    const total = document.querySelector("#total");
+    const quantidade = document.querySelector("#quantidade");
+    const mensagem = document.querySelector("#mensagem");
+    const quantidadeStat = document.querySelector("#quantidade-stat");
+    const totalStat = document.querySelector("#total-stat");
+    const mediaStat = document.querySelector("#media-stat");
+    const tiposStat = document.querySelector("#tipos-stat");
+    const adicionarExemplos = document.querySelector("#adicionar-exemplos");
+
+    function atualizarCampos() {
+      const ehTV = tipo.value === "tv";
+      resolucaoLabel.hidden = !ehTV;
+      resolucao.disabled = !ehTV;
+      resolucao.required = ehTV;
+
+      if (!ehTV) resolucao.value = "";
+
+      if (ehTV) {
+        extraTexto.textContent = "Tamanho (polegadas)";
+        extra.placeholder = "Ex.: 55";
+        modelo.placeholder = "Ex.: Smart TV Crystal";
+      } else if (tipo.value === "celular") {
+        extraTexto.textContent = "Memória";
+        extra.placeholder = "Ex.: 256 GB";
+        modelo.placeholder = "Ex.: Galaxy S25";
+      } else {
+        extraTexto.textContent = "Tamanho do aro";
+        extra.placeholder = "Ex.: 29";
+        modelo.placeholder = "Ex.: Mountain Bike";
+      }
+    }
+
+    function moeda(numero) {
+      return numero.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    }
+
+    function numero(valorDigitado) {
+      return Number(String(valorDigitado).trim().replace(",", "."));
+    }
+
+    function criarProduto() {
+      const m = modelo.value.trim();
+      const f = fabricante.value.trim();
+      const v = numero(valor.value);
+      const e = extra.value.trim();
+
+      if (!m || !f || !e || !Number.isFinite(v) || v <= 0) return null;
+
+      if (tipo.value === "tv") {
+        const r = resolucao.value.trim();
+        const tamanho = numero(e);
+        if (!r || !Number.isFinite(tamanho) || tamanho <= 0) return null;
+        return { id: proximoId++, tipo: "TV", modelo: m, fabricante: f, valor: v, detalhes: r + " • " + tamanho + '"' };
+      }
+
+      if (tipo.value === "celular") {
+        return { id: proximoId++, tipo: "Celular", modelo: m, fabricante: f, valor: v, detalhes: "Memória: " + e };
+      }
+
+      const aro = numero(e);
+      if (!Number.isFinite(aro) || aro <= 0) return null;
+      return { id: proximoId++, tipo: "Bicicleta", modelo: m, fabricante: f, valor: v, detalhes: "Aro " + aro };
+    }
+
+    function atualizarEstatisticas() {
+      const qtd = carrinho.quantidade();
+      const soma = carrinho.total();
+
+      quantidadeStat.textContent = String(qtd);
+      totalStat.textContent = moeda(soma);
+      mediaStat.textContent = moeda(carrinho.valorMedio());
+      tiposStat.textContent = String(carrinho.quantidadeTipos());
+      quantidade.textContent = qtd + " " + (qtd === 1 ? "produto" : "produtos");
+      total.textContent = moeda(soma);
+    }
+
+    function renderizar() {
+      atualizarEstatisticas();
+      const produtos = carrinho.listar();
+
+      if (produtos.length === 0) {
+        lista.innerHTML = '<div class="empty"><span>🛒</span><strong>Carrinho vazio</strong><p>Adicione seu primeiro produto ao lado.</p></div>';
+        return;
+      }
+
+      lista.innerHTML = produtos.map((p) => {
+        const icone = p.tipo === "TV" ? "📺" : p.tipo === "Celular" ? "📱" : "🚲";
+        return '<article class="product">' +
+          '<div class="product-icon">' + icone + '</div>' +
+          '<div class="product-info">' +
+            '<span class="tag">' + p.tipo + '</span>' +
+            '<h3>' + p.modelo + '</h3>' +
+            '<p>' + p.fabricante + ' • ' + p.detalhes + '</p>' +
+          '</div>' +
+          '<div class="product-actions">' +
+            '<strong>' + moeda(p.valor) + '</strong>' +
+            '<button type="button" class="remove" data-id="' + p.id + '">Excluir</button>' +
+          '</div>' +
+        '</article>';
+      }).join("");
+
+      lista.querySelectorAll(".remove").forEach((botao) => {
+        botao.addEventListener("click", () => {
+          carrinho.remover(Number(botao.dataset.id));
+          mensagem.className = "message success";
+          mensagem.textContent = "Produto removido. Total atualizado.";
+          renderizar();
+        });
+      });
+    }
+
+    function adicionarProduto(produto) {
+      carrinho.adicionar(produto);
+      renderizar();
+    }
+
+    tipo.addEventListener("change", atualizarCampos);
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const produto = criarProduto();
+
+      if (!produto) {
+        mensagem.className = "message error";
+        mensagem.textContent = "Confira os campos. Preencha todos os dados com valores válidos.";
+        return;
+      }
+
+      adicionarProduto(produto);
+
+      mensagem.className = "message success";
+      mensagem.textContent = produto.tipo + " adicionado com sucesso! Total: " + moeda(carrinho.total());
+
+      form.reset();
+      tipo.value = "tv";
+      atualizarCampos();
+      modelo.focus();
+    });
+
+    adicionarExemplos.addEventListener("click", () => {
+      const exemplos = [
+        { id: proximoId++, tipo: "TV", modelo: "Smart TV Crystal 55", fabricante: "Samsung", valor: 2999.90, detalhes: '4K • 55"' },
+        { id: proximoId++, tipo: "Celular", modelo: "Galaxy S25", fabricante: "Samsung", valor: 4499.90, detalhes: "Memória: 256 GB" },
+        { id: proximoId++, tipo: "Bicicleta", modelo: "Mountain Bike Explorer", fabricante: "Caloi", valor: 1499.00, detalhes: "Aro 29" }
+      ];
+
+      exemplos.forEach(adicionarProduto);
+      mensagem.className = "message success";
+      mensagem.textContent = "3 produtos adicionados. Total do carrinho: " + moeda(carrinho.total());
+    });
+
+    atualizarCampos();
+    renderizar();
+  </script>
 </body>
 </html>
