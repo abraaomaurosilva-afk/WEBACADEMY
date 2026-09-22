@@ -8,6 +8,8 @@ const tipo = document.querySelector<HTMLSelectElement>("#tipo")!;
 const modelo = document.querySelector<HTMLInputElement>("#modelo")!;
 const fabricante = document.querySelector<HTMLInputElement>("#fabricante")!;
 const valor = document.querySelector<HTMLInputElement>("#valor")!;
+const resolucao = document.querySelector<HTMLInputElement>("#resolucao")!;
+const resolucaoLabel = document.querySelector<HTMLLabelElement>("#campo-resolucao-label")!;
 const extra = document.querySelector<HTMLInputElement>("#extra")!;
 const extraLabel = document.querySelector<HTMLLabelElement>("#campo-extra-label")!;
 const adicionar = document.querySelector<HTMLButtonElement>("#adicionar")!;
@@ -21,7 +23,12 @@ const mediaStat = document.querySelector<HTMLElement>("#media-stat")!;
 const tiposStat = document.querySelector<HTMLElement>("#tipos-stat")!;
 
 function atualizarCampoExtra(): void {
-  if (tipo.value === "tv") { extraLabel.firstChild!.textContent = "Tamanho (polegadas)"; extra.placeholder = "Ex.: 55"; }
+  const ehTV = tipo.value === "tv";
+  resolucaoLabel.style.display = ehTV ? "" : "none";
+  resolucao.disabled = !ehTV;
+  if (!ehTV) resolucao.value = "";
+
+  if (ehTV) { extraLabel.firstChild!.textContent = "Tamanho (polegadas)"; extra.placeholder = "Ex.: 55"; }
   else if (tipo.value === "celular") { extraLabel.firstChild!.textContent = "Memória"; extra.placeholder = "Ex.: 256 GB"; }
   else { extraLabel.firstChild!.textContent = "Tamanho do aro"; extra.placeholder = "Ex.: 29"; }
 }
@@ -30,9 +37,15 @@ function criarProduto(): Produto | null {
   const m=modelo.value.trim(), f=fabricante.value.trim(), v=Number(valor.value), e=extra.value.trim();
   if(!m||!f||!e||!Number.isFinite(v)||v<=0) return null;
   const id=proximoId++;
-  if(tipo.value==="tv"){ const tamanho=Number(e.replace(",",".")); if(!Number.isFinite(tamanho)||tamanho<=0)return null; return new TV(id,m,"4K",tamanho,f,v); }
+  if(tipo.value==="tv"){
+    const r=resolucao.value.trim();
+    const tamanho=Number(e.replace(",","."));
+    if(!r||!Number.isFinite(tamanho)||tamanho<=0)return null;
+    return new TV(id,m,r,tamanho,f,v);
+  }
   if(tipo.value==="celular") return new Celular(id,m,e,f,v);
-  const aro=Number(e.replace(",",".")); if(!Number.isFinite(aro)||aro<=0)return null;
+  const aro=Number(e.replace(",","."));
+  if(!Number.isFinite(aro)||aro<=0)return null;
   return new Bicicleta(id,m,aro,f,v);
 }
 function atualizarEstatisticas(): void {
@@ -56,7 +69,7 @@ adicionar.addEventListener("click",()=>{
   if(!produto){mensagem.textContent="Preencha todos os dados do produto corretamente.";return;}
   carrinho.adicionar(produto);
   mensagem.textContent="Produto inserido. Estatísticas atualizadas automaticamente.";
-  modelo.value="";fabricante.value="";valor.value="";extra.value="";
+  modelo.value="";fabricante.value="";valor.value="";resolucao.value="";extra.value="";
   renderizar();
 });
 atualizarCampoExtra();renderizar();
