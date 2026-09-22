@@ -1,0 +1,190 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+.card {
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+h1,
+h2 {
+  margin-top: 0;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.campo {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+input,
+textarea,
+button {
+  width: 100%;
+  font: inherit;
+}
+
+input,
+textarea {
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: 11px 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.primary {
+  background: #2563eb;
+  color: white;
+}
+
+.secondary {
+  background: #64748b;
+  color: white;
+}
+
+.danger {
+  background: #dc2626;
+  color: white;
+}
+
+.edit {
+  background: #f59e0b;
+  color: white;
+}
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.topo button {
+  width: auto;
+}
+
+.botoes-formulario {
+  display: flex;
+  gap: 10px;
+}
+
+.botoes-formulario button {
+  width: auto;
+}
+
+.lembrete {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+  background: #ffffff;
+}
+
+.lembrete h3 {
+  margin-top: 0;
+}
+
+.meta {
+  color: #64748b;
+  font-size: 0.92rem;
+  margin: 6px 0;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.actions button {
+  width: auto;
+}
+
+.empty {
+  color: #64748b;
+  text-align: center;
+  padding: 22px 0;
+}
+
+.oculto {
+  display: none;
+}
+
+#mensagem-login {
+  color: #dc2626;
+  font-weight: bold;
+  margin-top: 12px;
+}
+
+@media (max-width: 700px) {
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full {
+    grid-column: auto;
+  }
+
+  .topo {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .topo button {
+    width: 100%;
+  }
+
+  .actions,
+  .botoes-formulario {
+    flex-direction: column;
+  }
+
+  .actions button,
+  .botoes-formulario button {
+    width: 100%;
+  }
+}
