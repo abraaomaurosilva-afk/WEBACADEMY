@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Lembretes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="container">
+
+    <section class="card" id="area-login">
+      <h1>🔐 Login</h1>
+
+      <form id="form-login">
+        <div class="campo">
+          <label for="usuario">Usuário</label>
+          <input
+            type="text"
+            id="usuario"
+            placeholder="Digite seu usuário"
+            required
+          >
+        </div>
+
+        <div class="campo">
+          <label for="senha">Senha</label>
+          <input
+            type="password"
+            id="senha"
+            placeholder="Digite sua senha"
+            required
+          >
+        </div>
+
+        <button type="submit" class="primary">Entrar</button>
+        <p id="mensagem-login"></p>
+      </form>
+    </section>
+
+    <section id="aplicacao" class="oculto">
+
+      <div class="topo">
+        <div>
+          <h1>📝 Meus Lembretes</h1>
+          <p id="usuario-logado"></p>
+        </div>
+
+        <button
+          type="button"
+          class="secondary"
+          id="btn-sair">
+          Sair
+        </button>
+      </div>
+
+      <section class="card">
+        <h2>Novo lembrete</h2>
+
+        <form id="form-lembrete" class="grid">
+
+          <input type="hidden" id="id-edicao">
+
+          <div>
+            <label for="titulo">Título *</label>
+            <input
+              id="titulo"
+              type="text"
+              placeholder="Ex.: Estudar TypeScript"
+              required
+            >
+          </div>
+
+          <div>
+            <label for="data-insercao">Data e Hora de Inserção</label>
+            <input
+              id="data-insercao"
+              type="datetime-local"
+              readonly
+            >
+          </div>
+
+          <div>
+            <label for="data-limite">Data limite</label>
+            <input
+              id="data-limite"
+              type="datetime-local"
+            >
+          </div>
+
+          <div class="full">
+            <label for="descricao">Descrição</label>
+            <textarea
+              id="descricao"
+              placeholder="Descreva a atividade pendente"></textarea>
+          </div>
+
+          <div class="full botoes-formulario">
+            <button
+              class="primary"
+              type="submit"
+              id="btn-salvar">
+              Adicionar lembrete
+            </button>
+
+            <button
+              class="secondary oculto"
+              type="button"
+              id="btn-cancelar">
+              Cancelar edição
+            </button>
+          </div>
+
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Atividades pendentes</h2>
+        <div id="lista-lembretes"></div>
+      </section>
+
+    </section>
+
+  </main>
+
+  <script src="index.js"></script>
+</body>
+</html>
