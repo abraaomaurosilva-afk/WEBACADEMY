@@ -7,55 +7,30 @@
   <link rel="stylesheet" href="./src/style.css">
 </head>
 <body>
-  <header class="header">
-    <div>
-      <p class="eyebrow">Laboratório 03</p>
-      <h1>Carrinho de Compras</h1>
-      <p>Generics, classes e interfaces com TypeScript</p>
-    </div>
-  </header>
+  <header class="header"><div><p class="eyebrow">Laboratório 03</p><h1>Carrinho de Compras</h1><p>Insira diferentes produtos e acompanhe as estatísticas em tempo real.</p></div></header>
   <main class="container">
+    <section class="stats" aria-label="Estatísticas do carrinho">
+      <div class="stat"><span>Produtos</span><strong id="quantidade-stat">0</strong></div>
+      <div class="stat"><span>Valor total</span><strong id="total-stat">R$ 0,00</strong></div>
+      <div class="stat"><span>Valor médio</span><strong id="media-stat">R$ 0,00</strong></div>
+      <div class="stat"><span>Tipos diferentes</span><strong id="tipos-stat">0</strong></div>
+    </section>
     <section class="card">
-      <h2>Adicionar produto</h2>
+      <h2>Inserir produto</h2>
+      <p class="subtitle">Preencha os dados do produto. Ao inserir, ele passa a contar automaticamente nas estatísticas do carrinho.</p>
       <div class="form-grid">
-        <label>Tipo
-          <select id="tipo">
-            <option value="tv">TV</option>
-            <option value="celular">Celular</option>
-            <option value="bicicleta">Bicicleta</option>
-          </select>
-        </label>
-        <label>Modelo
-          <input id="modelo" type="text" placeholder="Ex.: Smart TV 55">
-        </label>
-        <label>Fabricante
-          <input id="fabricante" type="text" placeholder="Ex.: Samsung">
-        </label>
-        <label>Valor (R$)
-          <input id="valor" type="number" min="0" step="0.01" placeholder="0,00">
-        </label>
-        <label id="campo-extra-label">Resolução
-          <input id="extra" type="text" placeholder="Ex.: 4K">
-        </label>
+        <label>Tipo<select id="tipo"><option value="tv">TV</option><option value="celular">Celular</option><option value="bicicleta">Bicicleta</option></select></label>
+        <label>Modelo<input id="modelo" type="text" placeholder="Ex.: Smart TV 55"></label>
+        <label>Fabricante<input id="fabricante" type="text" placeholder="Ex.: Samsung"></label>
+        <label>Valor (R$)<input id="valor" type="number" min="0.01" step="0.01" placeholder="0,00"></label>
+        <label id="campo-extra-label">Tamanho (polegadas)<input id="extra" type="text" placeholder="Ex.: 55"></label>
       </div>
-      <button id="adicionar" class="primary">Adicionar ao carrinho</button>
+      <button id="adicionar" class="primary">Inserir no carrinho</button>
       <p id="mensagem" class="message" aria-live="polite"></p>
     </section>
-
     <section class="card">
-      <div class="cart-header">
-        <div>
-          <h2>Meu carrinho</h2>
-          <p id="quantidade">0 produtos</p>
-        </div>
-        <div class="total-box">
-          <span>Total</span>
-          <strong id="total">R$ 0,00</strong>
-        </div>
-      </div>
-      <div id="lista" class="products">
-        <div class="empty">Nenhum produto adicionado.</div>
-      </div>
+      <div class="cart-header"><div><h2>Produtos no carrinho</h2><p id="quantidade">0 produtos</p></div><div class="total-box"><span>Total do carrinho</span><strong id="total">R$ 0,00</strong></div></div>
+      <div id="lista" class="products"><div class="empty">Nenhum produto adicionado.</div></div>
     </section>
   </main>
   <script type="module" src="./src/main.ts"></script>
