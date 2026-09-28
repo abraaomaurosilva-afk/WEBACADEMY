@@ -1,12 +1,16 @@
 {
   "name": "expts",
   "version": "1.0.0",
-  "description": "Exercício II - Hello World com Express e TypeScript",
+  "description": "Exercício II - Express com TypeScript, validação de ambiente, ESLint e Prettier",
   "main": "dist/index.js",
   "scripts": {
     "start": "nodemon --watch src --exec ts-node src/index.ts",
     "build": "tsc",
-    "start:prod": "node dist/index.js"
+    "start:prod": "node dist/index.js",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\""
   },
   "dependencies": {
     "dotenv": "^17.2.2",
@@ -15,7 +19,13 @@
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/node": "^24.5.2",
+    "@typescript-eslint/eslint-plugin": "^8.44.1",
+    "@typescript-eslint/parser": "^8.44.1",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.6",
     "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   }
