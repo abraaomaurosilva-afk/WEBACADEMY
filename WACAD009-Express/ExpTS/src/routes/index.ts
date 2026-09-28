@@ -1,87 +1,13 @@
 import { Router } from 'express';
-import { LoremIpsum } from 'lorem-ipsum';
+import * as mainController from '../controllers/main';
 
 const router = Router();
 
-const lorem = new LoremIpsum({
-  sentencesPerParagraph: {
-    max: 8,
-    min: 4,
-  },
-  wordsPerSentence: {
-    max: 16,
-    min: 4,
-  },
-});
-
-router.get('/', (_req, res) => {
-  res.send('<h1>Hello World!</h1>');
-});
-
-router.get('/lorem/:paragraphs', (req, res) => {
-  const paragraphs = Number(req.params.paragraphs);
-
-  if (!Number.isInteger(paragraphs) || paragraphs <= 0 || paragraphs > 100) {
-    res.status(400).json({
-      error: 'Informe um número inteiro de parágrafos entre 1 e 100.',
-      exemplo: '/lorem/3',
-    });
-    return;
-  }
-
-  const text = lorem.generateParagraphs(paragraphs);
-  const generatedParagraphs = text.split('\n').filter(Boolean);
-
-  res.send(
-    generatedParagraphs
-      .map((paragraph) => `<p>${paragraph}</p>`)
-      .join('\n')
-  );
-});
-
-router.get('/hb1', (_req, res) => {
-  res.render('hb1', {
-    title: 'Exemplo Handlebars 1',
-    message: 'Olá! Esta mensagem foi enviada pela rota /hb1.',
-  });
-});
-
-router.get('/hb2', (_req, res) => {
-  res.render('hb2', {
-    title: 'Exemplo Handlebars 2',
-    nome: 'Abraão',
-    curso: 'Web Academy',
-    mostrarMensagem: true,
-  });
-});
-
-router.get('/hb3', (_req, res) => {
-  res.render('hb3', {
-    title: 'Exemplo Handlebars 3',
-    tecnologias: [
-      { nome: 'Node.js', tipo: 'Runtime JavaScript' },
-      { nome: 'Express', tipo: 'Framework Web' },
-      { nome: 'TypeScript', tipo: 'Linguagem tipada' },
-      { nome: 'Handlebars', tipo: 'Template Engine' },
-    ],
-  });
-});
-
-router.get('/hb4', (_req, res) => {
-  const technologies = [
-    { name: 'Express', type: 'Framework', poweredByNodejs: true },
-    { name: 'Laravel', type: 'Framework', poweredByNodejs: false },
-    { name: 'React', type: 'Library', poweredByNodejs: true },
-    { name: 'Handlebars', type: 'Engine View', poweredByNodejs: true },
-    { name: 'Django', type: 'Framework', poweredByNodejs: false },
-    { name: 'Docker', type: 'Virtualization', poweredByNodejs: false },
-    { name: 'Sequelize', type: 'ORM tool', poweredByNodejs: true },
-  ];
-
-  res.render('hb4', {
-    title: 'Tecnologias baseadas em Node.js',
-    technologies,
-  });
-});
+router.get('/', mainController.index);
+router.get('/lorem/:paragraphs', mainController.loremIpsum);
+router.get('/hb1', mainController.hb1);
+router.get('/hb2', mainController.hb2);
+router.get('/hb3', mainController.hb3);
+router.get('/hb4', mainController.hb4);
 
 export default router;
