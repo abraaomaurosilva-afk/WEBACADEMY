@@ -4,27 +4,63 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{title}}</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
 </head>
 <body>
-  <header>
-    <h1>WACAD009 - Express + TypeScript</h1>
-    <nav>
-      <a href="/">Início</a> |
-      <a href="/hb1">HB1</a> |
-      <a href="/hb2">HB2</a> |
-      <a href="/hb3">HB3</a> |
-      <a href="/hb4">HB4</a>
-    </nav>
-    <hr>
-  </header>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">WACAD009</a>
 
-  <main>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarMain"
+        aria-controls="navbarMain"
+        aria-expanded="false"
+        aria-label="Alternar navegação"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Início</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/hb1">HB1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/hb2">HB2</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/hb3">HB3</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/hb4">HB4</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/lorem/3">Lorem Ipsum</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-4">
     {{{body}}}
   </main>
 
-  <hr>
-  <footer>
-    <p>Web Academy - WACAD009</p>
+  <footer class="border-top mt-5 py-3">
+    <div class="container">
+      <p class="mb-0 text-body-secondary">Web Academy - WACAD009</p>
+    </div>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
