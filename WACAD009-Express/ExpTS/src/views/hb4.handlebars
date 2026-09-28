@@ -1,0 +1,8 @@
+<h2>{{title}}</h2>
+<p>A lista abaixo é filtrada por um helper customizado do Handlebars.</p>
+
+<ul>
+  {{#listNodeTechnologies technologies}}
+    <li><strong>{{name}}</strong> - {{type}}</li>
+  {{/listNodeTechnologies}}
+</ul>
